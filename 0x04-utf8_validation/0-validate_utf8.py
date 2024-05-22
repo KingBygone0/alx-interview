@@ -44,3 +44,4 @@ def validUTF8(data):
         return True
 
     return False
+
