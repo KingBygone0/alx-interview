@@ -1,19 +1,26 @@
-#!/usr/bin/python3
-""" Rotate 2D Matrix
-"""
-
-
 def rotate_2d_matrix(matrix):
-    """ Given an n x n 2D matrix, rotate it 90 degrees clockwise
-    """
-    for x, y in enumerate(zip(*reversed(matrix))):
-        matrix[x] = list(y)
-
-
-if __name__ == '__main__':
-    matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-
-    """ rotate_2d_matrix(matrix) """
-    rotate_2d_matrix(matrix)
-    print(matrix)
-
+    n = len(matrix)
+    
+    # Iterate through each layer
+    for layer in range(n // 2):
+        first = layer
+        last = n - 1 - layer
+        
+        # Iterate through each element in the current layer
+        for i in range(first, last):
+            offset = i - first
+            
+            # Store top element
+            top = matrix[first][i]
+            
+            # Move left element to top
+            matrix[first][i] = matrix[last - offset][first]
+            
+            # Move bottom element to left
+            matrix[last - offset][first] = matrix[last][last - offset]
+            
+            # Move right element to bottom
+            matrix[last][last - offset] = matrix[i][last]
+            
+            # Move top element to right
+            matrix[i][last] = top
